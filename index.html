@@ -217,6 +217,11 @@ setInterval(() => {
   setTimeout(() => s.remove(),1500);
 },300);
 </script>
+  function showReply(title, message) {
+  const reply = document.getElementById("reply");
+  reply.textContent = message;
+  reply.classList.remove("hidden");
+}
 
 </body>
 </html>

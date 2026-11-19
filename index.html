@@ -33,6 +33,7 @@ body {
   border: 2px solid #ffffff80;
   box-shadow: 0 0 30px #ff4fa3;
   z-index: 2;
+  margin: 25px auto;
 }
 
 .flower {
@@ -59,10 +60,18 @@ button {
   font-weight: bold;
   margin: 10px;
   font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  transform: scale(0.95);
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #message {
@@ -73,11 +82,22 @@ button {
   animation: appear 1s;
 }
 
+#reply {
+  background: #ffffff55;
+  color: white;
+  padding: 15px;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 #qrImage {
   width: 180px;
   height: 180px;
   background: white;
   margin: 15px auto;
+  display: block;
 }
 
 .floating {
@@ -92,6 +112,7 @@ button {
   position: fixed;
   animation: sparkle 1s infinite alternate;
   pointer-events: none;
+  z-index: 1;
 }
 
 @keyframes beat {
@@ -110,12 +131,21 @@ button {
 }
 
 @keyframes sparkle {
-  to { opacity: 1; transform: scale(1.5); }
+  to {
+    opacity: 1;
+    transform: scale(1.5);
+  }
 }
 
 @keyframes appear {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
@@ -132,33 +162,43 @@ button {
 
   <p>มีอะไรอยากบอกเธอ...</p>
 
-  <button onclick="openMessage()">
+  <button type="button" onclick="openMessage()">
     OPEN MY HEART 💌
   </button>
 
   <div id="message" class="hidden">
+
     <h2>I LIKE YOU 💗</h2>
+
     <p>กูชอบมึงนะโตเล็ก 💐💗</p>
+
     <p>You make me happy 🌷</p>
+
     <div style="font-size:45px">💐❤️💐</div>
+
     <p>ถ้ามึงไม่ว่าอะไรเราลองมาคบกันดูก่อนไหม 💗</p>
 
-<div class="love-buttons">
-  <button onclick="showReply('ตกลง 💗','รักนะเด็กโง่ 💕🥰')">
-    💗 ตกลง
-  </button>
+    <div class="love-buttons">
 
-  <button onclick="showReply('ไม่','ไม่เป็นไรนะ ขอบคุณที่บอกกัน 💗')">
-    ไม่
-  </button>
-</div>
+      <button type="button"
+        onclick="showReply('รักนะเด็กโง่ 💕🥰')">
+        💗 ตกลง
+      </button>
 
-<div id="reply" class="hidden"></div>
+      <button type="button"
+        onclick="showReply('ไม่เป็นไรนะ ขอบคุณที่บอกกัน 💗')">
+        ไม่
+      </button>
+
+    </div>
+
+    <div id="reply" class="hidden"></div>
+
   </div>
 
   <p>Made with love 💗</p>
 
-  <button onclick="makeQR()">
+  <button type="button" onclick="makeQR()">
     SHOW MY QR CODE
   </button>
 
@@ -169,16 +209,26 @@ button {
 
 </div>
 
-<div id="effects"></div>
-
 <script>
+
+// เปิดข้อความ
 function openMessage() {
   document.getElementById("message")
     .classList.toggle("hidden");
 }
 
+// ปุ่มตกลงและไม่
+function showReply(message) {
+  const reply = document.getElementById("reply");
+
+  reply.textContent = message;
+  reply.classList.remove("hidden");
+}
+
+// ระบบ QR Code
 function makeQR() {
   const area = document.getElementById("qrArea");
+
   area.classList.toggle("hidden");
 
   if (!area.classList.contains("hidden")) {
@@ -193,41 +243,40 @@ function makeQR() {
 // หัวใจลอย
 setInterval(() => {
   const h = document.createElement("div");
+
   h.className = "floating";
+
   h.textContent = ["💗","💕","💖","❤️","💘"][
-    Math.floor(Math.random()*5)
+    Math.floor(Math.random() * 5)
   ];
-  h.style.left = Math.random()*100+"vw";
+
+  h.style.left = Math.random() * 100 + "vw";
   h.style.fontSize = "25px";
+
   document.body.appendChild(h);
 
-  setTimeout(() => h.remove(),6000);
-},400);
+  setTimeout(() => h.remove(), 6000);
+
+}, 400);
 
 // ประกายดาว
 setInterval(() => {
   const s = document.createElement("div");
+
   s.className = "star";
   s.textContent = "✦";
-  s.style.left = Math.random()*100+"vw";
-  s.style.top = Math.random()*100+"vh";
+
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
   s.style.color = "white";
+
   document.body.appendChild(s);
 
-  setTimeout(() => s.remove(),1500);
-},300);
+  setTimeout(() => s.remove(), 1500);
+
+}, 300);
+
 </script>
-  function showReply(title, message) {
-  const reply = document.getElementById("reply");
-  reply.textContent = message;
-  reply.classList.remove("hidden");
-}
 
 </body>
 </html>
-function showReply(title, message) {
-  const reply = document.getElementById("reply");
-
-  reply.textContent = message;
-  reply.classList.remove("hidden");
-}
